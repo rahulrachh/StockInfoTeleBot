@@ -6,14 +6,17 @@ import yfinance as yf
 API_KEY = var.api_key
 bot = telebot.TeleBot(API_KEY)
 
+# runs by sending '/greet' in the bot chat
 @bot.message_handler(commands=['greet'])
 def greet(message):
     bot.reply_to(message, "Hey Wassup ? How You doin ?")
 
+# runs by sending '/hello' in the bot chat
 @bot.message_handler(commands=['hello'])
 def hello(message):
     bot.send_message(message.chat.id, "Hello There !!!!!!!!")
 
+# runs by sending '/wsb' in the bot chat
 @bot.message_handler(commands=['wsb'])
 def get_stocks(message):
     response = ""
@@ -44,6 +47,7 @@ def get_stocks(message):
     bot.send_message(message.chat.id, response)
         # stock_request(message)
 
+# defining custom commmands without '/'
 def stock_request(message):
     request = message.text.split()
     if len(request)<2 or request[0].lower() not in "price":
@@ -51,7 +55,7 @@ def stock_request(message):
     else:
         return True
 
-
+# runs by passing 'price<space>stockid' to get the stock info of last 5 minutes separated by 1 minute
 @bot.message_handler(func=stock_request)
 def send_price(message):
     request = message.text.split()[1]
