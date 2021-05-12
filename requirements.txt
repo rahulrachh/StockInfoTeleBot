@@ -1,0 +1,2 @@
+pyTelegramBotAPI==3.7.7
+yfinance==0.1.59
